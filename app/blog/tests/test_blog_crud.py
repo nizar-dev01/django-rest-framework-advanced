@@ -13,15 +13,13 @@ class BlogOperationsTests(TestCase):
     """Test the operations of the blog app"""
     def test_create_blog_success(self):
         blog_data = {
-            "title": "Test blog",
-            "content": "Content of the test blog",
-            "slug": "test-blog-1"
-        }
-        blog = Blog(**blog_data)
-        blog.save()
-
-        saved_blog = Blog.objects.get(slug=blog_data["slug"])
-        self.assertEqual(saved_blog.slug, blog_data["slug"])
+        "title": "Test blog",
+        "content": "Content of the test blog",
+        "slug": "test-blog-1"
+    }
+        blog = createBlog(blog_data)
+        saved_blog = Blog.objects.get(slug=blog.slug)
+        self.assertEqual(saved_blog.slug, blog.slug)
 
     def test_create_blog_fail_with_invalid_content(self):
         blog_data = {

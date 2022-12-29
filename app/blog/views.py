@@ -10,7 +10,6 @@ class UpdateBlogView(generics.UpdateAPIView):
     lookup_field = "slug"
 
     def perform_update(self, serializer):
-        print("::::::::::::::::::: - performing update operation - :::::::::::::::::::")
         serializer.save()
         return super().perform_update(serializer)
 
@@ -23,3 +22,11 @@ class GetBlogView(generics.RetrieveAPIView):
     queryset = Blog.objects.all()
     serializer_class = serializers.BlogSerializer
     lookup_field = "slug"
+
+class DeleteBlogView(generics.DestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = serializers.BlogSerializer
+    lookup_field = "slug"
+
+    def perform_destroy(self, instance):
+        return super().perform_destroy(instance)

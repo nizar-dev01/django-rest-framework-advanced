@@ -7,12 +7,12 @@ from rest_framework import status
 from django.urls import reverse
 from blog.models import Blog
 
+blog_data = {
+    "title": "Test Blog Post",
+    "content": "The content of the blog created during unit testing, which contains more than 20 characters to bypass the content validation.",
+    "slug": "test-blog-1"
+}
 def create_blog():
-    blog_data = {
-        "title": "Test Blog Post",
-        "content": "The content of the blog created during unit testing, which contains more than 20 characters to bypass the content validation.",
-        "slug": "test-blog-1"
-    }
     return Blog.objects.create(**blog_data)
 
 class BlogAPITest(TestCase):
@@ -62,3 +62,14 @@ class BlogAPITest(TestCase):
         LIST_BLOG_URL = reverse("blog:list")
         res = self.client.get(LIST_BLOG_URL)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+    def test_delete_blog_success(self):
+        """Test deleting a blog is successful."""
+        # Create a blog
+        blog = create_blog()
+        DELETE_BLOG_URL = reverse("blog:delete", args=[blog.slug])
+        self.assertIsNotNone(DELETE_BLOG_URL)
+
+        # Delete the blog
+        res = self.client.delete(DELETE_BLOG_URL)
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)

@@ -8,5 +8,5 @@ urlpatterns = [
     path("update/<slug:slug>/", views.UpdateBlogView.as_view(), name="update"),
     path("list", views.ListBlogView.as_view(), name="list"),
     path("get/<slug:slug>", views.GetBlogView.as_view(), name="get"),
-    path("list/", views.ListBlogView.as_view(), name="list")
+    path("delete/<slug:slug>", views.DeleteBlogView.as_view(), name="delete")
 ]
