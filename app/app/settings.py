@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'rest_framework',
-    'drf_spectacular'
+    'drf_spectacular',
+    'user',
+    'blog'
 ]
 
 MIDDLEWARE = [
@@ -86,11 +88,6 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASSWORD')
     }
 }
-
-# import sys
-# if 'test' in sys.argv or 'test\_coverage' in sys.argv: #Covers regular testing and django-coverage
-#  DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
-#  DATABASES['default']['NAME'] = ':memory:'
 
 
 # Password validation
