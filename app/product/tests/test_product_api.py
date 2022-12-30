@@ -60,9 +60,6 @@ class TestProductAPI(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(product_count, len(payloads))
 
-
-
-
     # Detail
     def test_product_detail_api(self):
         """Test product detail API."""
