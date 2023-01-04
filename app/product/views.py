@@ -1,6 +1,17 @@
-from rest_framework import generics
-from product.serializers import ProductSerializer
-from .models import Product
+from rest_framework import (
+    generics,
+    viewsets
+)
+
+from product.serializers import (
+    ProductSerializer,
+    BrandSerializer
+)
+from .models import (
+    Product,
+    Brand
+)
+
 
 class CreateProduct(generics.CreateAPIView):
     serializer_class = ProductSerializer
@@ -30,3 +41,8 @@ class DeleteProduct(generics.DestroyAPIView):
 class ListProduct(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+class BrandViewSet(viewsets.ModelViewSet):
+    """Viewset for Brand."""
+    serializer_class = BrandSerializer
+    queryset = Brand.objects.all()
