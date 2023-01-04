@@ -102,7 +102,24 @@ class BrandAPITestsAuthenticated(TestCase):
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
 
 
+class BrandAPITestsPublic(TestCase):
+    """Tests for unauthenticated requests to brand APIs."""
+    def create_brand(self, payload = None):
+        if not payload:
+            payload = {
+                "name": "Test Brand 1",
+                "code": "test-brand-1"
+            }
 
+        return self.client.post(LIST_BRAND_URL, payload)
 
+    def setUP(self):
+        self.client = APIClient()
+
+    def test_create_brand_fail(self):
+        """Test create brand API fails."""
+        res = self.create_brand()
+
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 

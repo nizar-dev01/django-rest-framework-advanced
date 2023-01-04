@@ -1,7 +1,9 @@
 from rest_framework import (
     generics,
-    viewsets
+    viewsets,
 )
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from product.serializers import (
     ProductSerializer,
@@ -46,3 +48,5 @@ class BrandViewSet(viewsets.ModelViewSet):
     """Viewset for Brand."""
     serializer_class = BrandSerializer
     queryset = Brand.objects.all()
+    permission_classes = [ IsAuthenticated ]
+    authentication_classes = [ TokenAuthentication ]
