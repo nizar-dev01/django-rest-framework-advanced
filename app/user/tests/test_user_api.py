@@ -148,8 +148,8 @@ class PrivateUserApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, {
-            "name": "Unit Tester",
-            "email": "test@example.com",
+            "name": self.user.name,
+            "email": self.user.email,
         })
 
     def test_post_me_not_allowed(self):
@@ -159,10 +159,7 @@ class PrivateUserApiTests(TestCase):
 
     def test_update_user_profile(self):
         """Test updating the user profile for the authenticated user."""
-        payload = {
-            "name": "Updated Name",
-            "password": "newpass123"
-        }
+        payload = {"name": "Updated name", "password": "newpassword123"}
         res = self.client.patch(ME_URL, payload)
         self.user.refresh_from_db()
 

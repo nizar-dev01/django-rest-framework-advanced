@@ -23,9 +23,9 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, password=None, **extra_fields):
+    def create_superuser(self, email, password):
         """Create, save and return a new superuser."""
-        user = self.create_user(email, password, **extra_fields)
+        user = self.create_user(email, password)
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
@@ -43,18 +43,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
 
-
-class Tag(models.Model):
-    """Tag for filtering recipes."""
-    name = models.CharField(max_length=255)
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return self.name
-
 class Recipe(models.Model):
     """Recipe object."""
     user = models.ForeignKey(
@@ -66,7 +54,18 @@ class Recipe(models.Model):
     time_minutes = models.IntegerField()
     price = models.DecimalField(max_digits=5, decimal_places=2)
     link = models.CharField(max_length=255, blank=True)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField("Tag")
 
     def __str__(self):
         return self.title
+
+class Tag(models.Model):
+    """Tag for filtering recipes."""
+    name = models.CharField(max_length=255)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.name
