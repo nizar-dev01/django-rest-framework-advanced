@@ -11,7 +11,7 @@ services:
       - DB_HOST=db
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
-      - DB_PASS=${DB_PASS}
+      - DB_PASSWORD=${DB_PASS}
       - SECRET_KEY=${DJANGO_SECRET_KEY}
       - ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
     depends_on:
@@ -25,16 +25,17 @@ services:
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_PASS=${DB_PASS}
 
   proxy:
-    buil:
+    build:
       context: ./proxy
     restart: always
     depends_on:
       - app
-    porst:
-      - 80:8000
+      - db
+    ports:
+      - 8080:8000
     volumes:
       - static-data:/vol/static
 
