@@ -10,6 +10,7 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
+      - dev-static-data:/vol/web
     command: >
       sh -c "
         python manage.py wait_for_db &&
@@ -20,7 +21,8 @@ services:
       - DB_HOST=db # The name of the database service
       - DB_NAME=devdb
       - DB_USER=devuser
-      - DB_PASSWORD=changemepass
+      - DB_PASS=changeme
+      - DEBUG=1
     depends_on:
       - db
 
@@ -31,7 +33,7 @@ services:
     environment:
       - POSTGRES_DB=devdb
       - POSTGRES_USER=devuser
-      - POSTGRES_PASSWORD=changemepass
+      - POSTGRES_PASSWORD=changeme
 
 volumes:
   dev-db-data:
